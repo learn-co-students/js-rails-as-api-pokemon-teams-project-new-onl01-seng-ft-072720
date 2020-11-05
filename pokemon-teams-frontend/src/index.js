@@ -51,25 +51,27 @@ function displayTrainerCards(dataset) {
 }
 
 function displayPokemons(pokemons, ul) {
-    pokemons.forEach(pokemon => {
-        const li = document.createElement("li")
-        const button = document.createElement("button")
-        button.className = "release"
-        button.dataset.pokemonId = pokemon.id
-        button.innerText = "Release"
+    pokemons.forEach(pokemon => displayPokemon(pokemon, ul))
+}
 
-        li.innerText = `${pokemon.nickname} (${pokemon.species})`
-        ul.append(li)
-        li.appendChild(button)
+function displayPokemon(pokemon, ul) {
+    const li = document.createElement("li")
+    const button = document.createElement("button")
+    button.className = "release"
+    button.dataset.pokemonId = pokemon.id
+    button.innerText = "Release"
 
-        button.addEventListener("click", deletePokemon) 
+    li.innerText = `${pokemon.nickname} (${pokemon.species})`
+    ul.append(li)
+    li.appendChild(button)
 
-    })
+    button.addEventListener("click", deletePokemon) 
 }
 
 
 function createPokemon(event) {
     const trainer_id = event.target.dataset.trainerId;
+    const ul = event.target.parentElement.childNodes[2];
     const pokemonCount = event.target.parentElement.childNodes[2].childElementCount;
     
     if (pokemonCount < 6) {
@@ -84,20 +86,17 @@ function createPokemon(event) {
             })
             })
         .then(resp => resp.json())
-        .then(pokemon => mountNewPokemon(pokemon))
+        .then(pokemon => displayPokemon(pokemon, ul))
     } else {
         console.log("You already have six pokemon")
     }
 
 }
 
-function mountNewPokemon(pokemon) {
-    // unfinished... need to pop pokemon onto dom from here
-    console.log(pokemon)
-}
 
 function deletePokemon(event){
-    const pokemonId = event.target.dataset.pokemonId;
+   
+
     // make fetch delete request, remove event.target from DOM
-    debugger
+
 }
