@@ -26,4 +26,13 @@ class PokemonsController < ApplicationController
             render :json => {message: "Something went wrong"}
         end
     end
+
+    def destroy
+        pokemon = Pokemon.find_by_id(params[:id])
+        if pokemon.destroy
+            render :json => pokemon
+        else
+            render :json => {message: "Something went wrong"}
+        end
+    end
 end
