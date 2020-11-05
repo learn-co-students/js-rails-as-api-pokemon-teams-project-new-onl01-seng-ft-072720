@@ -42,8 +42,6 @@ function displayTrainerCards(dataset) {
         card.append(ul)
 
         displayPokemons(pokemons, ul)
-        // add pokemon button here?
-        // debugger
 
         button.addEventListener("click", createPokemon) 
     })
@@ -95,7 +93,9 @@ function createPokemon(event) {
 
 
 function deletePokemon(event){
-   
+    const pokemonId = event.target.dataset.pokemonId;
+    
+   debugger
 
     // make fetch delete request, remove event.target from DOM
 
