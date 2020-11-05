@@ -62,6 +62,8 @@ function displayPokemons(pokemons, ul) {
         ul.append(li)
         li.appendChild(button)
 
+        button.addEventListener("click", deletePokemon) 
+
     })
 }
 
@@ -91,4 +93,9 @@ function createPokemon(event) {
 
 function mountNewPokemon(pokemon) {
     console.log(pokemon)
+}
+
+function deletePokemon(event){
+    const pokemonId = event.target.dataset.pokemonId;
+    debugger
 }
