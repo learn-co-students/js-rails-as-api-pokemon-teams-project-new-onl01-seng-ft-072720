@@ -43,6 +43,9 @@ function displayTrainerCards(dataset) {
 
         displayPokemons(pokemons, ul)
         // add pokemon button here?
+        // debugger
+
+        button.addEventListener("click", createPokemon) 
     })
 
 }
@@ -63,21 +66,29 @@ function displayPokemons(pokemons, ul) {
 }
 
 
-function createPokemon(trainer_id) {
-    fetch("http://localhost:3000/pokemons", {
-  method: "POST",
-  headers: {
-    "Content-Type": "application/json",
-    "Accept": "application/json"
-  },
-  body: JSON.stringify({
-    trainer_id: trainer_id
-  })
-})
-    .then(resp => resp.json())
-    .then(pokemon => mountNewPokemon(pokemon))
+function createPokemon(event) {
+    const trainer_id = event.target.dataset.trainerId;
+    const pokemonCount = event.target.parentElement.childNodes[2].childElementCount;
+    
+    if (pokemonCount < 6) {
+        fetch("http://localhost:3000/pokemons", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify({
+                trainer_id: trainer_id
+            })
+            })
+        .then(resp => resp.json())
+        .then(pokemon => mountNewPokemon(pokemon))
+    } else {
+        console.log("You already have six pokemon")
+    }
+
 }
 
 function mountNewPokemon(pokemon) {
-    // to be continued...
+    console.log(pokemon)
 }
