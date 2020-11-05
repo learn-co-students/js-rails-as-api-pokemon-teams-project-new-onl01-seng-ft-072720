@@ -92,10 +92,12 @@ function createPokemon(event) {
 }
 
 function mountNewPokemon(pokemon) {
+    // unfinished... need to pop pokemon onto dom from here
     console.log(pokemon)
 }
 
 function deletePokemon(event){
     const pokemonId = event.target.dataset.pokemonId;
+    // make fetch delete request, remove event.target from DOM
     debugger
 }
