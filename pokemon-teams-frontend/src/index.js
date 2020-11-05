@@ -22,11 +22,11 @@ function displayTrainerCards(dataset) {
         const name = data.name
         const pokemons = data.pokemons
 
-        const header = document.querySelector("body > header");
+        const main = document.querySelector("body > main");
         const card = document.createElement("div")
         card.className = "card";
         card.dataset.id = data.id
-        header.append(card)
+        main.append(card)
 
         const p = document.createElement("p")
         p.innerText = name
@@ -38,13 +38,46 @@ function displayTrainerCards(dataset) {
         button.innerText = "Add Pokemon"
         card.append(button)
 
-        displayPokemons(pokemons)
+        const ul = document.createElement("ul")
+        card.append(ul)
+
+        displayPokemons(pokemons, ul)
+        // add pokemon button here?
     })
 
 }
 
-function displayPokemons(pokemons) {
+function displayPokemons(pokemons, ul) {
     pokemons.forEach(pokemon => {
-        
+        const li = document.createElement("li")
+        const button = document.createElement("button")
+        button.className = "release"
+        button.dataset.pokemonId = pokemon.id
+        button.innerText = "Release"
+
+        li.innerText = `${pokemon.nickname} (${pokemon.species})`
+        ul.append(li)
+        li.appendChild(button)
+
     })
+}
+
+
+function createPokemon(trainer_id) {
+    fetch("http://localhost:3000/pokemons", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Accept": "application/json"
+  },
+  body: JSON.stringify({
+    trainer_id: trainer_id
+  })
+})
+    .then(resp => resp.json())
+    .then(pokemon => mountNewPokemon(pokemon))
+}
+
+function mountNewPokemon(pokemon) {
+    // to be continued...
 }
