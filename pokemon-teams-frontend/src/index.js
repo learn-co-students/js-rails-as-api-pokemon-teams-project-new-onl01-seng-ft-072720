@@ -86,7 +86,7 @@ function createPokemon(event) {
         .then(resp => resp.json())
         .then(pokemon => displayPokemon(pokemon, ul))
     } else {
-        console.log("You already have six pokemon")
+        alert("That trainer already has six pokemon");
     }
 
 }
@@ -94,9 +94,15 @@ function createPokemon(event) {
 
 function deletePokemon(event){
     const pokemonId = event.target.dataset.pokemonId;
-    
-   debugger
 
-    // make fetch delete request, remove event.target from DOM
+    fetch(`http://localhost:3000/pokemons/${pokemonId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            }
+            })
+            // .then(resp => resp.json())
+            .then(event.target.parentElement.remove())
 
 }
