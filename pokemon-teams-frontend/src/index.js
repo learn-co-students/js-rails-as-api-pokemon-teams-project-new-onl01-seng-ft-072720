@@ -9,22 +9,45 @@ const BASE_URL = "http://localhost:3000"
 const TRAINERS_URL = `${BASE_URL}/trainers`
 const POKEMONS_URL = `${BASE_URL}/pokemons`
 
-function htmlify(obj) {
-    const pokeArray= obj.pokemons.map((pokemon) => pokemon)
-    const newUL = document.createElement("ul")
+// function htmlify(obj) {
+//     const pokeArray= obj.pokemons.map((pokemon) => pokemon)
+//     const newUL = document.createElement("ul")
 
-    for (let e of pokeArray) {
-        const newLI = document.createElement("li")
-        newLI.innerText = `${e.nickname} - ${e.species}`
-        newUL.appendChild(newLI)
-    };
+//     for (let e of pokeArray) {
+//         const newLI = document.createElement("li")
+//         newLI.innerText = `${e.nickname} - ${e.species}`
+//         newUL.appendChild(newLI)
+//     };
     
-    return(`
-        <div class="card" data-id="${obj.id}"><p>${obj.name}</p>
-        ${newUL.querySelector("li")}
-        <button data-trainer-id="${obj.id}">Add Pokemon</button>
-        </div>
-    `)
+//     return(`
+//         <div class="card" data-id="${obj.id}"><p>${obj.name}</p>
+//         ${newUL.querySelector("li")}
+//         <button data-trainer-id="${obj.id}">Add Pokemon</button>
+//         </div>
+//     `)
+// };
+
+function createTrainerCard(trainer) {
+    const pokeArray = trainer.pokemons
+    
+    const trainerCard = 
+    `
+    <div class="card" data-id="${trainer.id}">
+    <p>${trainer.name}</p>
+    <ul>
+    ${ for (p of pokeArray) pokemonListItem(p)}
+    </ul>
+    <button data-trainer-id="${trainer.id}">Add Pokemon</button>
+    </div>
+    `
+
+    return trainerCard
+};
+
+function pokemonListItem(pokemon) {
+    const pokemonLi = document.createElement("li")
+    pokemonLi.innerText = `${pokemon.nickname} - ${pokemon.species}`
+    return pokemonLi
 };
 
 function renderTrainer(html) {
@@ -33,8 +56,8 @@ function renderTrainer(html) {
 
 function mountTrainersToDOM(trainers) {
     trainers.forEach(function(trainer){
-        const htmlTrainer = htmlify(trainer);
-        renderTrainer(htmlTrainer);
+       const trainerCard = createTrainerCard(trainer);
+        renderTrainer(trainerCard);
     });
 };
 
