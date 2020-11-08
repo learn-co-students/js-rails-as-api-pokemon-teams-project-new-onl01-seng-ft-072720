@@ -28,18 +28,19 @@ const POKEMONS_URL = `${BASE_URL}/pokemons`
 // };
 
 function createTrainerCard(trainer) {
-    const pokeArray = trainer.pokemons
+    let pokemonList = document.createElement('ul')
+    trainer.pokemons.forEach((pokemon) => { pokemonList.appendChild(pokemonListItem(pokemon)) })
     
     const trainerCard = 
-    `
-    <div class="card" data-id="${trainer.id}">
-    <p>${trainer.name}</p>
-    <ul>
-    ${ for (p of pokeArray) pokemonListItem(p)}
-    </ul>
-    <button data-trainer-id="${trainer.id}">Add Pokemon</button>
-    </div>
-    `
+        `
+            <div class="card" data-id="${trainer.id}">
+                <p>"${trainer.name}"</p>
+                    
+                <button data-trainer-id="${trainer.id}">Add Pokemon</button>
+            </div>
+        `
+
+        document.getElementById(`${trainer.id}`).appendChild(pokemonList)
 
     return trainerCard
 };
